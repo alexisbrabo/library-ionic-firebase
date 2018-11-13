@@ -11,15 +11,16 @@ import { BookService, Book } from '../../services/book.service';
 export class BookDetailsPage implements OnInit {
 
   book: Book = {
-    name: 'test',
-    author: 'test'
+    name: '',
+    author: '',
+    read: false
   };
 
   bookId = null;
 
   constructor(private route: ActivatedRoute,
-     private nav: NavController, private bookService: BookService,
-     private loadingController: LoadingController) { }
+    private nav: NavController, private bookService: BookService,
+    private loadingController: LoadingController) { }
 
   ngOnInit() {
     this.bookId = this.route.snapshot.params['id'];
@@ -30,7 +31,7 @@ export class BookDetailsPage implements OnInit {
 
   async loadBook() {
     const loading = await this.loadingController.create({
-      message: 'Loading Book..'
+      message: 'Carregando Livro..'
     });
     await loading.present();
 
@@ -43,7 +44,7 @@ export class BookDetailsPage implements OnInit {
   async saveBook() {
 
     const loading = await this.loadingController.create({
-      message: 'Saving Book..'
+      message: 'Salvando Livro..'
     });
     await loading.present();
 
@@ -58,6 +59,20 @@ export class BookDetailsPage implements OnInit {
         this.nav.goBack(true);
       });
     }
+  }
+
+  async removeBook() {
+
+    const loading = await this.loadingController.create({
+      message: 'Removendo Livro..'
+    });
+    await loading.present();
+
+    this.bookService.removeBook(this.bookId).then(() => {
+      loading.dismiss();
+      this.nav.goBack(true);
+    });
+
   }
 
 }

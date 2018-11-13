@@ -6,7 +6,7 @@
     <ion-title>Details</ion-title>
   </ion-toolbar>
 </ion-header>
- 
+
 <ion-content padding>
   <ion-list lines="full">
     <ion-item>
@@ -15,6 +15,11 @@
     <ion-item>
       <ion-input required type="text" placeholder="Autor" [(ngModel)]="book.author"></ion-input>
     </ion-item>
+    <ion-item>
+        <ion-label>Lido</ion-label>
+      <ion-checkbox color="primary" checked ></ion-checkbox>
+    </ion-item>
   </ion-list>
-  <ion-button expand="full" (click)="saveBook()">Save</ion-button>
+  <ion-button expand="full" (click)="saveBook()">Salvar</ion-button>
+  <ion-button expand="full" color="danger" *ngIf="bookId" (click)="removeBook()">Deletar</ion-button>
 </ion-content>

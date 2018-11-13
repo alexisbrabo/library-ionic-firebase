@@ -1,10 +1,14 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Home</ion-title>
+    <ion-title>Livros</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
+  <ion-toolbar>
+    <ion-searchbar></ion-searchbar>
+  </ion-toolbar>
+
   <ion-list>
 
     <ng-container *ngIf="!books || books.length == 0">
