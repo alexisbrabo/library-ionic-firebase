@@ -6,7 +6,7 @@
 
 <ion-content padding>
   <ion-toolbar>
-    <ion-searchbar></ion-searchbar>
+    <ion-searchbar placeholder="Pesquisar" (ionInput)="filterBooks($event)"></ion-searchbar>
   </ion-toolbar>
 
   <ion-list>
