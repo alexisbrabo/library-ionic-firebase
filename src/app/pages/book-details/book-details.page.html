@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/home"></ion-back-button>
     </ion-buttons>
-    <ion-title>Details</ion-title>
+    <ion-title>Detalhes</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -17,7 +17,7 @@
     </ion-item>
     <ion-item>
         <ion-label>Lido</ion-label>
-      <ion-checkbox color="primary" checked ></ion-checkbox>
+      <ion-checkbox color="primary" [(ngModel)]="book.read"></ion-checkbox>
     </ion-item>
   </ion-list>
   <ion-button expand="full" (click)="saveBook()">Salvar</ion-button>
