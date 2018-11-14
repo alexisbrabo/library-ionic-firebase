@@ -8,18 +8,20 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-list lines="full">
-    <ion-item>
-      <ion-input required type="text" placeholder="Nome" [(ngModel)]="book.name"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input required type="text" placeholder="Autor" [(ngModel)]="book.author"></ion-input>
-    </ion-item>
-    <ion-item>
+  <form #frm="ngForm">
+    <ion-list lines="full">
+      <ion-item>
+        <ion-input required type="text" placeholder="Nome" name="name" [(ngModel)]="book.name"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input required type="text" placeholder="Autor" name="author" [(ngModel)]="book.author"></ion-input>
+      </ion-item>
+      <ion-item>
         <ion-label>Lido</ion-label>
-      <ion-checkbox color="primary" [(ngModel)]="book.read"></ion-checkbox>
-    </ion-item>
-  </ion-list>
-  <ion-button expand="full" (click)="saveBook()">Salvar</ion-button>
- <!-- <ion-button expand="full" color="danger" *ngIf="bookId" (click)="removeBook()">Deletar</ion-button> -->
+        <ion-checkbox color="primary" name="read" [(ngModel)]="book.read"></ion-checkbox>
+      </ion-item>
+    </ion-list>
+    <ion-button expand="full" [disabled]="frm.invalid" (click)="saveBook()">Salvar</ion-button>
+    <!-- <ion-button expand="full" color="danger" *ngIf="bookId" (click)="removeBook()">Deletar</ion-button> -->
+  </form>
 </ion-content>

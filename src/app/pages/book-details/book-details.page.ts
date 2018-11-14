@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NavController, LoadingController } from '@ionic/angular';
+import { NavController, LoadingController, ToastController } from '@ionic/angular';
 import { BookService, Book } from '../../services/book.service';
 
 @Component({
@@ -20,7 +20,7 @@ export class BookDetailsPage implements OnInit {
 
   constructor(private route: ActivatedRoute,
     private nav: NavController, private bookService: BookService,
-    private loadingController: LoadingController) { }
+    private loadingController: LoadingController, public toastCtrl: ToastController) { }
 
   ngOnInit() {
     this.bookId = this.route.snapshot.params['id'];
@@ -41,6 +41,15 @@ export class BookDetailsPage implements OnInit {
     });
   }
 
+  async presentToast(txt: string) {
+    const toast = await this.toastCtrl.create({
+      message: txt,
+      duration: 1500,
+      color: 'success'
+    });
+    toast.present();
+  }
+
   async saveBook() {
 
     const loading = await this.loadingController.create({
@@ -52,27 +61,15 @@ export class BookDetailsPage implements OnInit {
       this.bookService.updateBook(this.book, this.bookId).then(() => {
         loading.dismiss();
         this.nav.goBack(true);
+        this.presentToast('Atualizado com Sucesso');
       });
     } else {
       this.bookService.addBook(this.book).then(() => {
         loading.dismiss();
         this.nav.goBack(true);
+        this.presentToast('Adicionado com Sucesso');
       });
     }
-  }
-
-  async removeBook() {
-
-    const loading = await this.loadingController.create({
-      message: 'Removendo Livro..'
-    });
-    await loading.present();
-
-    this.bookService.removeBook(this.bookId).then(() => {
-      loading.dismiss();
-      this.nav.goBack(true);
-    });
-
   }
 
 }
