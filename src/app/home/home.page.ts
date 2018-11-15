@@ -9,12 +9,13 @@ import { Book, BookService } from '../services/book.service';
 export class HomePage implements OnInit {
   books: Book[];
   booksLoaded: Book[];
-  booksRef: Book[];
+  filterBook: string;
 
   constructor(private bookService: BookService) { }
 
   ngOnInit() {
     this.getAll();
+    this.filterBook = 'T';
   }
 
   getAll() {
@@ -24,8 +25,26 @@ export class HomePage implements OnInit {
     });
   }
 
-  remove(book) {
+  async remove(book) {
     this.bookService.removeBook(book.id);
+    this.getAll();
+  }
+
+  filterBookChangeStatus() {
+    this.getAll();
+    if (this.filterBook === 'T') {
+      this.books = this.booksLoaded.filter(function (item) {
+        return item.name;
+      });
+    } else if (this.filterBook === 'NL') {
+      this.books = this.booksLoaded.filter(function (item) {
+        return !item.read;
+      });
+    } else {
+      this.books = this.booksLoaded.filter(function (item) {
+        return item.read;
+      });
+    }
   }
 
   filterBooks(ev: any) {

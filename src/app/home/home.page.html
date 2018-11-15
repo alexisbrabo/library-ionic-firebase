@@ -16,6 +16,15 @@
     <ion-searchbar placeholder="Pesquisar" (ionInput)="filterBooks($event)"></ion-searchbar>
   </ion-toolbar>
 
+  <ion-item>
+    <ion-label>Visualização</ion-label>
+    <ion-select [(ngModel)]="filterBook" (ionChange)="filterBookChangeStatus()" interface="action-sheet" placeholder="Selecione">
+      <ion-select-option checked value="T">Todos</ion-select-option>
+      <ion-select-option value="L">Lidos</ion-select-option>
+      <ion-select-option value="NL">Não Lidos</ion-select-option>
+    </ion-select>
+  </ion-item>
+
   <ion-list>
 
     <ng-container *ngIf="!books || books.length == 0">
@@ -33,7 +42,6 @@
           {{ item.name }}
           <p>{{ item.author }}</p>
         </ion-label>
-        <!-- <ion-note slot="end" color="primary">{{ item.author }}</ion-note> -->
       </ion-item>
 
       <ion-item-options side="end">

@@ -11,13 +11,13 @@
   <form #frm="ngForm">
     <ion-list lines="full">
       <ion-item>
-        <ion-input required type="text" placeholder="Nome" name="name" [(ngModel)]="book.name"></ion-input>
+        <ion-input required type="text" placeholder="Nome" name="name" [(ngModel)]="book.name" (ngModelChange)="book.name = $event.toLocaleUpperCase()" style="font-size: 14px"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-input required type="text" placeholder="Autor" name="author" [(ngModel)]="book.author"></ion-input>
+        <ion-input required type="text" placeholder="Autor" name="author" [(ngModel)]="book.author" (ngModelChange)="book.author = $event.toLocaleUpperCase()" style="font-size: 14px"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label>Lido</ion-label>
+        <ion-label style="font-size: 14px">Lido</ion-label>
         <ion-checkbox color="primary" name="read" [(ngModel)]="book.read"></ion-checkbox>
       </ion-item>
     </ion-list>

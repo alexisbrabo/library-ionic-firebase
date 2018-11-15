@@ -18,7 +18,7 @@ export class BookService {
   private booksCollection: AngularFirestoreCollection<Book>;
   private books: Observable<Book[]>;
   constructor(db: AngularFirestore) {
-    this.booksCollection = db.collection<Book>('books');
+    this.booksCollection = db.collection<Book>('books', ref => ref.orderBy('name'));
 
     this.books = this.booksCollection.snapshotChanges().pipe(
       map(actions => {
