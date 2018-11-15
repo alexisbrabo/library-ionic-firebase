@@ -37,7 +37,7 @@
     </ng-container>
 
     <ion-item-sliding *ngFor="let item of books">
-      <ion-item lines="inset" button [routerLink]="['/details', item.id]">
+      <ion-item lines="inset" button (click)="presentActionSheet(item.id)">
         <ion-label>
           {{ item.name }}
           <p>{{ item.author }}</p>
@@ -51,7 +51,6 @@
         </ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
-
   </ion-list>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">

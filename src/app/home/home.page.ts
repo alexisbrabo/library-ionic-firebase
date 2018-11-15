@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { Book, BookService } from '../services/book.service';
+import { ActionSheetController, NavController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -11,7 +13,10 @@ export class HomePage implements OnInit {
   booksLoaded: Book[];
   filterBook: string;
 
-  constructor(private bookService: BookService) { }
+  constructor(private bookService: BookService,
+    private nav: NavController, private ngZone: NgZone,
+    public actionSheetController: ActionSheetController,
+    private router: Router) { }
 
   ngOnInit() {
     this.getAll();
@@ -25,8 +30,8 @@ export class HomePage implements OnInit {
     });
   }
 
-  async remove(book) {
-    this.bookService.removeBook(book.id);
+  async remove(id: any) {
+    this.bookService.removeBook(id);
     this.getAll();
   }
 
@@ -45,6 +50,29 @@ export class HomePage implements OnInit {
         return item.read;
       });
     }
+  }
+
+  async presentActionSheet(id: any) {
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Opções',
+      buttons: [
+        {
+          text: 'Editar',
+          handler: () => {
+            this.ngZone.run(() => this.router.navigate(['details', id]));
+          }
+        }, {
+        text: 'Deletar',
+        role: 'destructive',
+        handler: () => {
+         this.remove(id);
+        }
+      }, {
+        text: 'Cancelar',
+        role: 'cancel',
+      }]
+    });
+    await actionSheet.present();
   }
 
   filterBooks(ev: any) {
